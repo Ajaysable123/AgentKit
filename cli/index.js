@@ -5,6 +5,7 @@
  *
  * Commands:
  *   init              Detect platforms and install AgentKit
+ *   uninstall         Remove all AgentKit files from current project
  *   sync              Re-sync config across all detected platforms
  *   status            Show health check + installed platforms + costs
  *   costs [--days N]  Show cost analytics report
@@ -26,6 +27,7 @@ const { sync }             = require("./sync");
 const { status }           = require("./status");
 const { costs }            = require("./costs");
 const { listSkills, skillInfo } = require("./skills");
+const { uninstall } = require("./uninstall");
 
 // Package root: where skills/, hooks/, router/, etc. live (the npm install dir)
 const AGENTKIT_HOME = process.env.AGENTKIT_HOME
@@ -58,6 +60,14 @@ function parseFlags(argv) {
 // ---------------------------------------------------------------------------
 
 switch (cmd) {
+  case "uninstall":
+    uninstall({
+      cwd:    process.cwd(),
+      purge:  flags.purge || false,
+      verbose: flags.verbose || false,
+    });
+    break;
+
   case "init":
     install({
       agentKitHome: AGENTKIT_HOME,
@@ -131,12 +141,13 @@ switch (cmd) {
 
 function printHelp() {
   console.log(`
-AgentKit v0.5.2 — Intelligent orchestration for agentic coding
+AgentKit v0.5.4 — Intelligent orchestration for agentic coding
 
 Usage: npx agentkit <command> [options]
 
 Commands:
   init              Detect platforms and install AgentKit
+  uninstall         Remove all AgentKit files from current project
   sync              Re-sync config across all detected platforms
   status            Health check + installed platforms + costs
   costs             Cost analytics (--days N, default 7)
@@ -152,6 +163,7 @@ Options:
   --bundle <name>   Skill bundle for init/sync (default: backend-pro)
   --platform <id>   Install for a specific platform only
   --days <N>        Days for cost report (default: 7)
+  --purge           uninstall: also delete runtime data (.agentkit/ costs/memory/state)
 
 Environment:
   AGENTKIT_HOME     Override package root (default: npm install directory)

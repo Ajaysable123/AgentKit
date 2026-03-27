@@ -1,6 +1,6 @@
 {
   "name": "agentkit-ai",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "description": "Intelligent orchestration layer for agentic coding — 50 skills, smart skill loading, persistent memory, 70% cost reduction, enforced workflows, and 10+ platform support.",
   "keywords": [
     "claude-code",

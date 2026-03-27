@@ -712,3 +712,29 @@ skills:
     keywords: [websocket, socket.io, real-time, ws, live-update, push-notification, event-driven]
     effectiveness: 0.86
     bundles: [backend-pro, frontend-wizard, full-stack-hero]
+
+  - id: date-time-handling
+    name: Date & Time Handling
+    category: utilities
+    priority: 2
+    path: skills/utilities/date-time-handling.md
+    level1_tokens: 45
+    level2_tokens: 480
+    level3_tokens: 2100
+    platforms: [claude-code, cursor, codex, gemini-cli, antigravity, opencode, aider, windsurf]
+    keywords: [datetime, timezone, utc, iso8601, date, time, timestamp, scheduling, dst, daylight saving]
+    effectiveness: 0.88
+    bundles: [backend-pro, frontend-wizard, full-stack-hero]
+
+  - id: error-handling-patterns
+    name: Error Handling Patterns
+    category: quality
+    priority: 2
+    path: skills/quality/error-handling-patterns.md
+    level1_tokens: 45
+    level2_tokens: 480
+    level3_tokens: 2100
+    platforms: [claude-code, cursor, codex, gemini-cli, antigravity, opencode, aider, windsurf]
+    keywords: [error, exception, retry, circuit-breaker, fault-tolerance, error-boundary, logging]
+    effectiveness: 0.90
+    bundles: [backend-pro, frontend-wizard, full-stack-hero, ai-engineer]

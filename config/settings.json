@@ -1,11 +1,15 @@
 {
   "_comment": "AgentKit Claude Code settings template. Copy relevant sections into your .claude/settings.json",
-  "_agentkit_version": "0.4.0",
+  "_agentkit_version": "0.5.4",
 
   "hooks": {
     "UserPromptSubmit": [
       {
         "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${AGENTKIT_HOME}/hooks/spawn_hook.py"
+          },
           {
             "type": "command",
             "command": "python3 ${AGENTKIT_HOME}/hooks/skill_router_hook.py"

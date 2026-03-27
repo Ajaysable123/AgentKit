@@ -104,6 +104,7 @@ def _merge_hooks(settings: dict, agentkit_home: str) -> dict:
         buckets.append(entry)
 
     H = agentkit_home
+    _ensure_hook("UserPromptSubmit", None, f"python3 {H}/hooks/spawn_hook.py")
     _ensure_hook("UserPromptSubmit", None, f"python3 {H}/hooks/skill_router_hook.py")
     _ensure_hook("UserPromptSubmit", None, f"bash {H}/hooks/session_start.sh")
     _ensure_hook("UserPromptSubmit", None, f"bash {H}/hooks/memory_inject.sh")

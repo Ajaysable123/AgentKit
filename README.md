@@ -18,7 +18,7 @@
 ```
 $ npx agentkit init
 
-AgentKit Installer v0.5.0
+AgentKit Installer v0.5.4
 ─────────────────────────
 
 Detecting platforms...
@@ -78,8 +78,9 @@ npm install -g agentkit-ai
 
 ## What It Does
 
-AgentKit is a 5-layer runtime that sits between your prompts and the model:
+AgentKit is a 6-layer runtime that sits between your prompts and the model:
 
+- **Layer 0 — Spawn Engine:** 3-tier analyzer detects complex tasks and automatically decomposes them into N specialized agents running in parallel waves — no configuration required
 - **Layer 1 — Skill Router:** Classifies every prompt in < 10ms → loads only relevant skills → 45,000 tokens/session down to 5,000 (89% reduction)
 - **Layer 2 — Memory Graph:** SQLite knowledge graph captures files, functions, decisions across sessions → Haiku-compressed handoffs so context survives restarts
 - **Layer 3 — Token Budget:** Auto-routes Haiku / Sonnet / Opus by task complexity + proactive context compaction at 60% fill + real-time cost dashboard in your status bar
@@ -107,10 +108,35 @@ AgentKit is a 5-layer runtime that sits between your prompts and the model:
 
 ---
 
+## Dynamic Agent Spawning
+
+AgentKit v0.5.4 adds a **zero-config spawn engine** that automatically detects when a task needs multiple agents and orchestrates them for you.
+
+```
+$ claude "Build a REST API with auth, tests, and a security audit"
+
+[AgentKit] Multi-agent task detected (confidence: 0.90)
+[AgentKit] Spawning 5 agents in 4 waves...
+
+Wave 1 →  architect  (opus-4.6)      Design schema + endpoints
+Wave 2 →  writer     (haiku-4.5)     Implement API + auth          [waits: architect]
+Wave 3 →  tester     (haiku-4.5)     Write pytest suite            [waits: writer]
+         security   (sonnet-4.6)    OWASP audit                   [waits: writer]
+Wave 4 →  reviewer   (sonnet-4.6)    Final code review             [waits: writer + tester]
+```
+
+- **3-tier detection:** keyword signals (<5ms) → heuristic scoring (<10ms) → Haiku LLM fallback (~$0.0003) for ambiguous cases
+- **Smart model routing per role:** Architect gets Opus, implementation gets Haiku, security/review get Sonnet
+- **DAG execution:** parallel where possible, sequential where dependencies require it
+- **Recursion-safe:** spawned agents never re-spawn (infinite loop prevention built-in)
+
+---
+
 ## How AgentKit Compares
 
 | Feature | AgentKit | Superpowers | claude-mem | ClaudeFast |
 |---------|----------|-------------|------------|------------|
+| **Dynamic agent spawning** | ✅ Auto-detects, N agents, DAG waves | ❌ | ❌ | ❌ |
 | Smart skill loading | ✅ Auto-routed, 89% token reduction | ✅ Manual SKILL.md | ❌ | ❌ |
 | Skill library | ✅ **50 skills**, 7 role bundles | ❌ BYO only | ❌ | ❌ |
 | Persistent memory | ✅ SQLite graph + session handoffs | ❌ | ✅ Basic | ❌ |
@@ -118,7 +144,7 @@ AgentKit is a 5-layer runtime that sits between your prompts and the model:
 | Workflow enforcement | ✅ Research→Plan→Execute→Review→Ship | ⚠️ Suggested only | ❌ | ❌ |
 | Quality gates | ✅ syntax+lint+types+tests on every edit | ❌ | ❌ | ❌ |
 | Multi-platform | ✅ 10 platforms, 1 config | ❌ Claude Code only | ❌ | ❌ |
-| Subagent cost routing | ✅ Always Haiku (12× cheaper) | ❌ | ❌ | ❌ |
+| Subagent cost routing | ✅ Per-role model (12× cheaper) | ❌ | ❌ | ❌ |
 | Cost dashboard | ✅ Real-time status bar | ❌ | ❌ | ✅ |
 | `npx` install | ✅ One command | ❌ Manual | ❌ Manual | ❌ |
 
@@ -135,6 +161,8 @@ npx agentkit skills list       # Browse all 50 skills
 npx agentkit workflow status   # Current Research/Plan/Execute state
 npx agentkit workflow approve  # Approve plan → unlock coding
 npx agentkit detect            # Show detected AI coding tools
+npx agentkit uninstall         # Remove all AgentKit files
+npx agentkit uninstall --purge # Also delete runtime data (costs/memory/state)
 ```
 
 ---
