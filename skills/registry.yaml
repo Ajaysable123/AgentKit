@@ -686,3 +686,29 @@ skills:
     keywords: [flutter, dart, widget, stateless, stateful, provider, riverpod, bloc, go_router, pub.dev, hot reload]
     effectiveness: 0.85
     bundles: [mobile-dev, full-stack-hero]
+
+  - id: data-modeling
+    name: Data Modeling
+    category: db
+    priority: 2
+    path: skills/db/data-modeling.md
+    level1_tokens: 45
+    level2_tokens: 480
+    level3_tokens: 2100
+    platforms: [claude-code, cursor, codex, gemini-cli, antigravity, opencode, aider, windsurf]
+    keywords: [database, schema, normalization, er-diagram, relational, foreign-key, index, migration]
+    effectiveness: 0.87
+    bundles: [backend-pro, full-stack-hero, data-scientist]
+
+  - id: websockets
+    name: WebSockets
+    category: api
+    priority: 2
+    path: skills/api/websockets.md
+    level1_tokens: 45
+    level2_tokens: 480
+    level3_tokens: 2100
+    platforms: [claude-code, cursor, codex, gemini-cli, antigravity, opencode, aider, windsurf]
+    keywords: [websocket, socket.io, real-time, ws, live-update, push-notification, event-driven]
+    effectiveness: 0.86
+    bundles: [backend-pro, frontend-wizard, full-stack-hero]
