@@ -738,3 +738,17 @@ skills:
     keywords: [error, exception, retry, circuit-breaker, fault-tolerance, error-boundary, logging]
     effectiveness: 0.90
     bundles: [backend-pro, frontend-wizard, full-stack-hero, ai-engineer]
+
+  # ── Utilities ────────────────────────────────────────────────────────────
+  - id: web-scraping
+    name: Web Scraping
+    category: utilities
+    priority: 2
+    path: skills/utilities/web-scraping.md
+    level1_tokens: 45
+    level2_tokens: 480
+    level3_tokens: 2000
+    platforms: [claude-code, cursor, codex, gemini-cli, antigravity, opencode, aider, windsurf]
+    keywords: [scraping, scrape, crawler, crawl, BeautifulSoup, Scrapy, Playwright, robots.txt, selector, pagination, rate limit]
+    effectiveness: 0.80
+    bundles: [backend-pro, full-stack-hero, data-scientist]
